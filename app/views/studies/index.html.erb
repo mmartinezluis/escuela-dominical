@@ -1,0 +1,21 @@
+<% @studies.each do |study| %>
+  <% study.outline[:subtitles].each do |subtitle, points| %>
+    <h3><%= subtitle %></h3>
+    <div class= "point">
+    <ul>
+      <% points.each do  |point| %>
+        <li>
+        <%= point %>
+        </li>
+       
+      <% end %>
+    </ul>
+    </div>
+  <% end %>
+  
+<% end %>
+
+<ul>
+<li>1</li>
+<li>2</li>
+</ul>

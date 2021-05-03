@@ -13,3 +13,48 @@
  *= require_tree .
  *= require_self
  */
+
+ /* Apply margin 0 and padding 0 to all elements by default */
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* box-sizing and font sizing */
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  
+  html { 
+    /* height: 100%;   */  /* commented out at 8:58am */
+    box-sizing: border-box;     /* Border box includes padding and margin within the given box element, without resizing the box */
+  }
+
+  body {
+    display: grid;
+    grid-template-columns: 5% 90%;
+    grid-template-rows: 10% 20%;
+    grid-template-areas:
+      ". nav"
+      ". header"
+      ". main"
+  }
+
+  .navbar {
+    grid-area: nav;
+    border: 1px black solid;
+  }
+
+  .header {
+    grid-area: header;
+    border: 1px blue solid;
+  }
+
+  .main {
+    grid-area: main;
+    border: 1px green solid;
+  }
+
