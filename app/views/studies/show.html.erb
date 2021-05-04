@@ -1,0 +1,74 @@
+<section class="view" id="show-view">
+
+  <div class="strip" id="title">
+    <h1><%= @study.title %></h1>
+  </div>
+
+  <div class="major-box" id="outline-box">
+    <ol class="subtitles-list">
+      <% @study.outline[:subtitles].each do |subtitle, points| %>
+        <li>
+          <h3><%= subtitle %></h3>
+        </li>
+
+        <div class= "minor-box" id="point-box">
+          <ol class="points-list">
+            <% points.each do |point| %>
+              <li>
+                <a href="<%= @study.subtitle_index(subtitle) %>.<%= @study.point_index(subtitle, point) %>">
+                  <%= point %>
+                </a>
+              </li> 
+            <% end %>
+          </ol>
+        </div>
+
+      <% end %>
+    </ol>
+  </div>
+
+  El Inicio de la Gran Tribulación
+Los juicios de los primeros cuatro sellos (Ap. 6:1-8)
+El juicio del caballo blanco, diplomacia y autoritarismo (6:1,2)
+el juicio del caballo bermejo, guerras y conflictos (6:3,4)
+El juicio del caballo negro,, hambre y escasez (6:5,6)
+El juicio del caballo amarillo, muerte y condenación (6:7,8)
+Los escogidos de dios son sellados (Ap. 7:1-8)
+Protección divina en medio de la tribulación (7:1-3)
+Identidad de los que son sellados (7:4-8)
+Una gran multitud de redimidos (Ap. 6:9-11, 7:9-17)
+Los primeros mártires de la tribulación (6:9-11)
+Se completa el número de los mártires (7:9-17)
+
+  El Inicio de la Gran Tribulación
+Los juicios de los primeros cuatro sellos (Ap. 6:1-8)
+El juicio del caballo blanco, diplomacia y autoritarismo (6:1,2)
+el juicio del caballo bermejo, guerras y conflictos (6:3,4)
+El juicio del caballo negro,, hambre y escasez (6:5,6)
+El juicio del caballo amarillo, muerte y condenación (6:7,8)
+Los escogidos de dios son sellados (Ap. 7:1-8)
+Protección divina en medio de la tribulación (7:1-3)
+Identidad de los que son sellados (7:4-8)
+Una gran multitud de redimidos (Ap. 6:9-11, 7:9-17)
+Los primeros mártires de la tribulación (6:9-11)
+Se completa el número de los mártires (7:9-17)
+
+  El Inicio de la Gran Tribulación
+Los juicios de los primeros cuatro sellos (Ap. 6:1-8)
+El juicio del caballo blanco, diplomacia y autoritarismo (6:1,2)
+el juicio del caballo bermejo, guerras y conflictos (6:3,4)
+El juicio del caballo negro,, hambre y escasez (6:5,6)
+El juicio del caballo amarillo, muerte y condenación (6:7,8)
+Los escogidos de dios son sellados (Ap. 7:1-8)
+Protección divina en medio de la tribulación (7:1-3)
+Identidad de los que son sellados (7:4-8)
+Una gran multitud de redimidos (Ap. 6:9-11, 7:9-17)
+Los primeros mártires de la tribulación (6:9-11)
+Se completa el número de los mártires (7:9-17)
+
+
+
+
+
+
+</section>

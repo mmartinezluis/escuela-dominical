@@ -14,6 +14,7 @@
  *= require_self
  */
 
+
  /* Apply margin 0 and padding 0 to all elements by default */
 * {
     margin: 0;
@@ -29,32 +30,86 @@
   }
   
   html { 
-    /* height: 100%;   */  /* commented out at 8:58am */
     box-sizing: border-box;     /* Border box includes padding and margin within the given box element, without resizing the box */
   }
 
   body {
     display: grid;
-    grid-template-columns: 5% 90%;
-    grid-template-rows: 10% 20%;
+    grid-template-rows: 5% 90%;
     grid-template-areas:
-      ". nav"
-      ". header"
-      ". main"
+      "nav"
+      "main"
+      "footer";
+
+    min-height: 100vh;
   }
 
   .navbar {
     grid-area: nav;
     border: 1px black solid;
+    
   }
 
-  .header {
-    grid-area: header;
-    border: 1px blue solid;
+  .footer {
+    grid-area: footer;
+    border: 4px orange solid;
+    
   }
 
   .main {
     grid-area: main;
-    border: 1px green solid;
+    border: 5px pink solid;
+    padding: 1rem 1rem 0 1rem;
+    overflow:scroll;
+    
+    /* min-height: 100%vh; */
+    
+    /* min-height: 0; */
+  
   }
+
+  ul {
+    display: block;
+    list-style-type: disc;
+    list-style-type: upper-roman;
+    margin-top: 1em;
+    margin-bottom: 1 em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
+  }
+
+  ol {
+    display: block;
+    list-style-type: decimal;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
+  }
+
+  ol.subtitles-list {
+    list-style-type: upper-roman;
+  }
+
+/* Apply the below style later in the development */
+  /* ol.points-list {
+    list-style-type: upper-alpha;
+  } */
+
+
+#show-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  
+}
+
+/* .major-box {
+  min-width: 0;
+} */
+
+
 

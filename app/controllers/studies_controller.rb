@@ -7,7 +7,6 @@ class StudiesController < ApplicationController
 
   def show
     @study = Study.first
-    redireto_to study_path(@study)
   end
 
 end
