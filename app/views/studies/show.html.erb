@@ -15,9 +15,11 @@
           <ol class="points-list">
             <% points.each do |point| %>
               <li>
-                <a href="<%= @study.subtitle_index(subtitle) %>.<%= @study.point_index(subtitle, point) %>">
-                  <%= point %>
+                <a href="<%= @study.point_id(subtitle, point) %>">
+                  <%= point %><br>
                 </a>
+                <%= link_to point, study_point_path(@study.id, @study.point_id(subtitle, point)) %>
+                
               </li> 
             <% end %>
           </ol>

@@ -9,4 +9,8 @@ class StudiesController < ApplicationController
     @study = Study.first
   end
 
+  def activate_point
+    
+  end
+
 end
