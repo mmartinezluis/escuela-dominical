@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-OUTLINE = {
+ESTUDIES = {
     :title => "El Inicio de la Gran Tribulación",
     :semester => 2,
     :year => 2021,
@@ -19,7 +19,7 @@ OUTLINE = {
             "el juicio del caballo bermejo, guerras y conflictos (6:3,4)",
             "El juicio del caballo negro,, hambre y escasez (6:5,6)",
             "El juicio del caballo amarillo, muerte y condenación (6:7,8)"
-        ],
+]       ],
 
         "Los escogidos de dios son sellados (Ap. 7:1-8)" => [
             "Protección divina en medio de la tribulación (7:1-3)",

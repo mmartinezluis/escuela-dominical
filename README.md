@@ -1,4 +1,14 @@
 # README
+     function myFunction() {
+      var x = document.getElementById("active");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+      }
+
+<%= link_to point, study_point_path(@study.id, @study.point_id(subtitle, point)) %>
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

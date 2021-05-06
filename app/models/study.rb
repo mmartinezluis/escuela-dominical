@@ -33,10 +33,10 @@ class Study < ApplicationRecord
   end
 
   def retrieve_point_by_id(point_id)
-    
+
   end
 
   def activate_point(point)
-
+  end
   
 end

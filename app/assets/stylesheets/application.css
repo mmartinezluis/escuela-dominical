@@ -61,11 +61,6 @@
     border: 5px pink solid;
     padding: 1rem 1rem 0 1rem;
     overflow:scroll;
-    
-    /* min-height: 100%vh; */
-    
-    /* min-height: 0; */
-  
   }
 
   ul {
@@ -107,9 +102,20 @@
   
 }
 
-/* .major-box {
-  min-width: 0;
-} */
+.notes-box {
+  border: 3px blue solid;
+  display: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  color: brown;
+  font-size: 1rem;
+  text-align: left;
+}
 
 
 

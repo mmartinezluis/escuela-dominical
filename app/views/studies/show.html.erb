@@ -15,19 +15,27 @@
           <ol class="points-list">
             <% points.each do |point| %>
               <li>
-                <a href="<%= @study.point_id(subtitle, point) %>">
-                  <%= point %><br>
-                </a>
-                <%= link_to point, study_point_path(@study.id, @study.point_id(subtitle, point)) %>
-                
+                <button onclick="activateBox(<%= @study.point_id(subtitle, point) %>)">
+                  <%= point %>
+                </button>
               </li> 
+              <div class="notes-box" id="<%= @study.point_id(subtitle, point) %>"
+                <span>Note Box</span>
+              </div>
             <% end %>
           </ol>
         </div>
-
       <% end %>
     </ol>
   </div>
+
+  <button onclick="myFunction()">Activate</button>
+  <div class="active-box" id="active"> 
+    <h1>I am active</h1>
+  </div>
+  <a href="#" id="hide_this" class="error">Click To Hide Me</a>
+
+  <br>
 
   El Inicio de la Gran Tribulación
 Los juicios de los primeros cuatro sellos (Ap. 6:1-8)
