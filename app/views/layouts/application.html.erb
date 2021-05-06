@@ -18,6 +18,7 @@
       <%= yield %>
       <%= javascript_pack_tag "hide" %>
     </div>
+
     <div class="footer">
     </div>
 
@@ -29,7 +30,7 @@
         } else {
           x.style.display = "none";
         }
-        }
+      }
 
         function activateBox(box_id) {
           var x = document.getElementById(box_id);
@@ -38,7 +39,7 @@
           } else {
             x.style.display = "none";
           }
-          }
+        }
       
     </script>
 
