@@ -6,37 +6,30 @@
 
   <div class="major-box" id="outline-box">
     <ol class="subtitles-list">
-      <% @study.outline[:subtitles].each do |subtitle, points| %>
+      <% @study.outline[:subtitles].each do |subtitle, points_array| %>
         <li>
           <h3><%= subtitle %></h3>
         </li>
-
         <div class= "minor-box" id="point-box">
           <ol class="points-list">
-            <% points.each do |point| %>
-              <li>
-                <button onclick="activateBox(<%= @study.point_id(subtitle, point) %>)">
-                  <%= point %>
-                </button>
-              </li> 
-              <div class="notes-box" id="<%= @study.point_id(subtitle, point) %>"
-                <span>Note Box</span>
-              </div>
+            <% points_array.each do |point_hash| %>
+              <% point_hash.each do |point, notes| %>
+                <li>
+                  <button onclick="activateBox(<%= @study.point_id(subtitle, point) %>)">
+                    <%= point  %>
+                  </button>
+                </li> 
+                <div class="notes-box" id="<%= @study.point_id(subtitle, point) %>"
+                  <h1><%= notes  %></h1>
+                </div>
+              <% end %>  
             <% end %>
           </ol>
         </div>
       <% end %>
     </ol>
   </div>
-
-  <button onclick="myFunction()">Activate</button>
-  <div class="active-box" id="active"> 
-    <h1>I am active</h1>
-  </div>
-  <a href="#" id="hide_this" class="error">Click To Hide Me</a>
-
-  <br>
-
+            
   El Inicio de la Gran Tribulación
 Los juicios de los primeros cuatro sellos (Ap. 6:1-8)
 El juicio del caballo blanco, diplomacia y autoritarismo (6:1,2)
@@ -75,10 +68,6 @@ Identidad de los que son sellados (7:4-8)
 Una gran multitud de redimidos (Ap. 6:9-11, 7:9-17)
 Los primeros mártires de la tribulación (6:9-11)
 Se completa el número de los mártires (7:9-17)
-
-
-
-
 
 
 </section>

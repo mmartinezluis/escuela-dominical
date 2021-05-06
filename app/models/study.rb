@@ -6,7 +6,13 @@ class Study < ApplicationRecord
   end
 
   def points
-    self.outline[:subtitles].values
+    self.outline[:subtitles].each do |subtitle, values|
+      group = []
+      values.each do |point, note|
+        points << point
+      end
+    end
+    group
   end
   
   def subtitle_index(subtitle)
@@ -15,11 +21,13 @@ class Study < ApplicationRecord
 
   def point_index(subtitle, point)
     index =""
-    self.outline[:subtitles].each do |sub, pts|
+    self.outline[:subtitles].each do |sub, points_array|
       if sub == subtitle
-        pts.each do |pt|
-          if pt == point
-            index = pts.index(point)
+        points_array.each do |point_hash|
+          point_hash.each do |pt, note|
+            if pt == point
+              index = points_array.index(point_hash)
+            end
           end
         end
       end
@@ -29,6 +37,7 @@ class Study < ApplicationRecord
 
   # Define the id of a point as the union of the index of the point's subtitle and the point's index joined by a period
   def point_id(subtitle, point)
+    
     "#{subtitle_index(subtitle) + 1}" + "." + "#{point_index(subtitle, point) + 1}"
   end
 
