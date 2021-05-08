@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_000933) do
+ActiveRecord::Schema.define(version: 6) do
+
+  create_table "notes", force: :cascade do |t|
+    t.text "details"
+    t.integer "point_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "points", force: :cascade do |t|
+    t.string "name"
+    t.integer "subtitle_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "studies", force: :cascade do |t|
     t.string "title"
@@ -21,6 +35,11 @@ ActiveRecord::Schema.define(version: 2021_05_03_000933) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "outline"
+  end
+
+  create_table "subtitles", force: :cascade do |t|
+    t.integer "study_id"
+    t.string "name"
   end
 
 end

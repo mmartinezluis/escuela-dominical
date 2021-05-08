@@ -14,5 +14,8 @@ ActiveStorage.start()
 
 
 
-
+// Remove a field from a form dynamically
+// $(".group_goal a.remove").on("click", function(e){
+//    $(this).parents(".group_goal").remove();
+// })
 

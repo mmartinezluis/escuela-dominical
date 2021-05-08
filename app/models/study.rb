@@ -1,19 +1,24 @@
 class Study < ApplicationRecord
   serialize :outline, Hash
+  has_many :subtitles
+  accepts_nested_attributes_for :subtitles, allow_destroy: true
+  has_many :points, through: :subtitles
+  has_many :notes, through: :points
+  
+  
+  # def subtitles
+  #   self.outline[:subtitles].keys
+  # end
 
-  def subtitles
-    self.outline[:subtitles].keys
-  end
-
-  def points
-    self.outline[:subtitles].each do |subtitle, values|
-      group = []
-      values.each do |point, note|
-        points << point
-      end
-    end
-    group
-  end
+  # def points
+  #   self.outline[:subtitles].each do |subtitle, values|
+  #     group = []
+  #     values.each do |point, note|
+  #       points << point
+  #     end
+  #   end
+  #   group
+  # end
   
   def subtitle_index(subtitle)
     self.subtitles.index(subtitle)
@@ -49,3 +54,4 @@ class Study < ApplicationRecord
   end
   
 end
+
