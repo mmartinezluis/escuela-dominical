@@ -15,12 +15,12 @@ Example:
   <% f.label :bilbical_base %>
   <% f.text_field :bilbical_base %>
   
-  <%= f.fields_for :outline do |outline_form| %>
+  <%= f.fields_for :subtitle do |subtitle_form| %>
     <li>
-      <%= outline_form.label :subtitle %>
-      <%= outline_form.text_field :subtitle %>
+      <%= subtitle_form.label :subtitle %>
+      <%= subtitle_form.text_field :subtitle %>
 
-      <%= outline_form.fields_for :point do |point| %>
+      <%= subtitle_form.fields_for :point do |point| %>
         <%= point.label :description %>
         <%= point.text_field :description %>
 
@@ -43,3 +43,19 @@ class Study < ActiveRecord::Base
 end
 
 
+Studies Controller
+
+def study_params
+  params.require)study).permit(
+    :title,
+    :semester,
+    :year,
+    :number,
+    :biblical_base,
+    subtitles [
+      :points [
+        :notes
+      ]
+    ]
+  )
+end
