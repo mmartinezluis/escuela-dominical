@@ -21,17 +21,12 @@ class StudiesController < ApplicationController
   end
 
   def create
+    binding.pry
     @study = Study.create(study_params)
-    @study.outline = {
-      :title => params[:title],
-      :semester => params[:semester],
-      :year => params[:year],
-      :subtitles => params[:study][:subtitles_attributes]
-    }
     redirect_to new_study_path  
   end
 
-  
+
   private
 
   def study_params

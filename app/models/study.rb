@@ -5,7 +5,7 @@ class Study < ApplicationRecord
   has_many :points, through: :subtitles
   has_many :notes, through: :points
   
-  
+
   # def subtitles
   #   self.outline[:subtitles].keys
   # end
@@ -51,6 +51,9 @@ class Study < ApplicationRecord
   end
 
   def activate_point(point)
+  end
+
+  def build_outline
   end
   
 end
