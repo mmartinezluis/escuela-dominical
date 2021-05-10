@@ -1,4 +1,7 @@
 <h1>Create a New Study</h1>
+<% if flash[:msg] %>
+  <%= flash[:msg] %>
+<% end %>
 
 <%= form_for @study do |f| %>
   <%= f.label :title %>
@@ -12,22 +15,31 @@
 
   <%= f.label :number %>
   <%= f.text_field :number %><br><br>
+
   <ol id="new-study-ol-list">
     <%= f.fields_for :subtitles do |sub| %>
       <li>
-        <%= sub.label 'Subtitle' %>
-        <%= sub.text_field :name %><br>
+
+        <div class="sub-div" id="<%= sub.index %>">
+          <%= sub.label 'Subtitle' %>
+          <%= sub.text_field :name %>
+        </div><br>
 
         <ul id="new-study-ul-list">
           <%= sub.fields_for :points do |point| %>
             <li>
-              <%= point.label 'Point' %>
-              <%= point.text_field :name %><br><br>
+              <div class="point-div" id="<%= sub.index %>.<%= point.index %>">
+                <%= point.label 'Point' %>
+                <%= point.text_field :name %>
+              </div><br><br>
 
               <%= point.fields_for :notes do |note| %>
-                <%= note.label 'Notes' %>
-                <%= note.text_area :details %><br><br>
+                <div class="note-div" id="<%= sub.index %>.<%= point.index %>.<%= note.index %>">
+                  <%= note.label 'Notes' %>
+                  <%= note.text_area :details %>
+                </div><br><br>
               <% end %>
+
             </li>
           <% end %>
         </ul>
@@ -36,6 +48,7 @@
       </li>
     <% end %>
   </ol>
+ 
   <%= f.submit %>
 <% end %>
 

@@ -5,6 +5,7 @@ class Study < ApplicationRecord
   has_many :points, through: :subtitles
   has_many :notes, through: :points
   
+  # validates_presence_of :title, :semester, :year, :number
 
   # def subtitles
   #   self.outline[:subtitles].keys
@@ -53,8 +54,24 @@ class Study < ApplicationRecord
   def activate_point(point)
   end
 
+  def non_empty_notes
+    self.notes.where("details != '""' ")
+  end
+
+  def non_empty_points
+    self.points.where.not({ "name" => "" })
+  end
+
+  def at_least_two_subtitles
+    self.subtitles.where({ "name" => "" })
+  end
+
+  def destroy_empties
+  end
+
   def build_outline
   end
-  
+
+
 end
 
