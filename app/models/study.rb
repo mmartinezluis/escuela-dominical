@@ -1,6 +1,6 @@
 class Study < ApplicationRecord
   serialize :outline, Hash
-  has_many :subtitles
+  has_many :subtitles, dependent: :destroy
   accepts_nested_attributes_for :subtitles, allow_destroy: true
   has_many :points, through: :subtitles
   has_many :notes, through: :points
@@ -54,6 +54,34 @@ class Study < ApplicationRecord
   def activate_point(point)
   end
 
+  def invalid_study
+    if self.non_empty_notes != []
+      non_empty_notes = self.non_empty_notes
+      non_empty_notes.each do |note|
+        if note.point.name.empty?
+          "Nonempty notes need to include a point."
+        elsif note.point.subtitle.name.empty?
+          "Nonempty points need to include a subtitle."
+        end
+      end
+    elsif self.non_empty_points != []
+      non_empty_points = @tempporary_study.non_empty_points
+      non_empty_points.each do |point|
+        if point.subtitle.name.empty?
+          "Nonempty points need to include a subtitle."
+        end
+      end
+    elsif self.subtitles.first.name.blank? && self.at_least_two_subtitles <= 1
+      "The first subtitle cannot be emtpy, and a study requires at least 2 subtitles."
+    elsif self.subtitles.first.name.blank?
+      "The first subtitle cannot be emtpy."
+    elsif self.at_least_two_subtitles.size <= 1
+      "A study requires at least 2 subtitles."
+    elsif self.top_point_not_empty == false
+      "The firt subtitle's point cannot be empty."
+    end
+  end
+
   def non_empty_notes
     self.notes.where("details != '""' ")
   end
@@ -63,10 +91,35 @@ class Study < ApplicationRecord
   end
 
   def at_least_two_subtitles
-    self.subtitles.where({ "name" => "" })
+    self.subtitles.where.not({ "name" => "" }).size
+  end
+
+  def top_point_not_empty
+    self.points.first.name.blank?
   end
 
   def destroy_empties
+    destroy_empty_subtitles
+    destroy_empty_points
+    destroy_empty_notes
+  end
+
+  def destroy_empty_subtitles
+    self.subtitles.where({ "name" => "" }).each do |sub|
+      sub.destroy
+    end
+  end
+
+  def destroy_empty_points
+    self.points.where({ "name" => "" }).each do |point|
+      point.destroy
+    end
+  end
+
+  def destroy_empty_notes
+    self.subtitles.where("details != '""' ").each do |note|
+      note.destroy
+    end
   end
 
   def build_outline
