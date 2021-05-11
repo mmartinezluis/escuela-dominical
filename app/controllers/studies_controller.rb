@@ -60,10 +60,10 @@ class StudiesController < ApplicationController
       render :'new_refactor.html.erb' and return
     else
       tempporary_study.destroy
-      @study = Study.new(study_params)
-      @study.destroy_empties
-      @study.save
-      @study.build_outline
+      # @study = Study.new(study_params)
+      # @study.destroy_empties
+      # @study.save
+      # @study.build_outline
       redirect_to new_study_path 
     end 
   end

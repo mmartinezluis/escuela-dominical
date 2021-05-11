@@ -1,6 +1,6 @@
 class Study < ApplicationRecord
   serialize :outline, Hash
-  has_many :subtitles, dependent: :destroy
+  has_many :subtitles, dependent: :destroy               # 'dependent: :destroy' is a callback method that allows the destruction of child objects when the parent object is destroyed; example: destroy a study, and all subtitles for that study will also be destroyed.
   accepts_nested_attributes_for :subtitles, allow_destroy: true
   has_many :points, through: :subtitles
   has_many :notes, through: :points
