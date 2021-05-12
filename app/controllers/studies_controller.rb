@@ -30,10 +30,12 @@ class StudiesController < ApplicationController
       temporary_study.destroy
       render :'new_refactor.html.erb' and return
     else
+      binding.pry
       temporary_study.destroy
       # @study.destroy_empties
       # @study.save
       # @study.build_outline
+      
       redirect_to studies_path 
     end 
   end

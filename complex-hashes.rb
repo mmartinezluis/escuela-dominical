@@ -198,6 +198,32 @@ def loop_machine
 
 end
 
+def build_outline
+  temporary_study.outline[:subtitle] = {}
+  m = temporary_study.subtitles.size
+  m.times { |i|
+    temporary_study.outline[:subtitle][temporary_study.subtitles[i].name] = []
+  }
+
+  m.times { |i|
+    j = temporary_study.subtitles[i].points.size
+    k = 0
+    while k < j
+      # subtitle_key = temporary_study.outline[:subtitle][temporary_study.subtitles[i].name]
+      # point_key = temporary_study.subtitles[k].points.[k].name
+      # note_value = point_key.notes[k].details
+
+      temporary_study.outline[:subtitle][temporary_study.subtitles[i].name] << {temporary_study.subtitles[k].points[k].name => temporary_study.subtitles[k].points[k].notes[k].details}
+      
+      k += 1
+    end
+
+  }
+
+
+
+end
+
 ###############################################################
 h = Hash.new
 h [:subtitle] = {
