@@ -5,6 +5,7 @@ class CreateStudies < ActiveRecord::Migration[6.1]
       t.integer :semester
       t.integer :year
       t.integer :number
+      t.string :biblical_base
       t.integer :user_id
 
       t.timestamps

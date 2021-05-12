@@ -12,6 +12,10 @@
 
   <%= f.label :number %>
   <%= f.text_field :number %><br><br>
+
+  <%= f.label :biblical_base %>
+  <%= f.text_field :biblical_base %><br><br>
+
   <ol id="new-study-ol-list">
     <%= f.fields_for :subtitles do |sub| %>
       <li>

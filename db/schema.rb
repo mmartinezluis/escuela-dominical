@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 6) do
     t.integer "semester"
     t.integer "year"
     t.integer "number"
+    t.string "biblical_base"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

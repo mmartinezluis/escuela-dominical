@@ -22,6 +22,7 @@ class StudiesController < ApplicationController
   end
 
   def create
+    @study = Study.new(study_params)
     temporary_study = Study.create(study_params)
     if !temporary_study.invalid_study.nil?
       flash[:msg] = temporary_study.invalid_study
@@ -29,10 +30,10 @@ class StudiesController < ApplicationController
       render :'new_refactor.html.erb' and return
     else
       temporary_study.destroy
-      @study = Study.new(study_params)
+      binding.pry
+      @study = Study.create(study_params)
       @study.destroy_empties
       @study.build_outline
-      binding.pry
       @study.save
       redirect_to studies_path 
     end 

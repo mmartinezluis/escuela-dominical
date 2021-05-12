@@ -118,9 +118,9 @@ class Study < ApplicationRecord
   end
 
   def destroy_empties
-    destroy_empty_subtitles
-    destroy_empty_points
     destroy_empty_notes
+    destroy_empty_points
+    destroy_empty_subtitles
   end
 
   def destroy_empty_subtitles
@@ -136,7 +136,7 @@ class Study < ApplicationRecord
   end
 
   def destroy_empty_notes
-    self.subtitles.where("details != '""' ").each do |note|
+    self.notes.where("details = ?", "").each do |note|
       note.destroy
     end
   end
@@ -147,12 +147,13 @@ class Study < ApplicationRecord
     self.outline[:semester] = self.semester
     self.outline[:year] = self.year
     self.outline[:number] = self.number
+    self.outline[:biblical_base] = self.biblical_base
     self.build_subtitles
     self.save
   end
 
   def build_subtitles
-    # For the outline hash, set a key-value pair consisting of a 'subtitles' symbol key and an empty hash value
+    # For the outline hash, set a key-value pair consisting of a 'subtitles' symbol key and a corresponding empty hash value
     self.outline[:subtitles] = {}
     m = self.subtitles.size
     # Construct one empty array for each subtitle key
@@ -163,7 +164,7 @@ class Study < ApplicationRecord
     m.times { |i|
       j = self.subtitles[i].points.size
       k = 0
-      # For each point within each subtitle, construct a hash with a key of the point name and a value of that point's note details and push the hash to the subttitle's array
+      # For each point within each subtitle, construct a hash with a key of the point name and a value of that point's note details and push the hash to the point's subttitle array
       while k < j
         subtitle = self.subtitles[i]
         point = subtitle.points[k]
