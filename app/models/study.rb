@@ -142,14 +142,39 @@ class Study < ApplicationRecord
   end
 
   def build_outline
+    self.outline = {}
     self.outline[:title] = self.title
     self.outline[:semester] = self.semester
     self.outline[:year] = self.year
     self.outline[:number] = self.number
-    self.outline[:subtitles] = 
+    self.build_subtitles
     self.save
   end
 
+  def build_subtitles
+    # For the outline hash, set a key-value pair consisting of a 'subtitles' symbol key and an empty hash value
+    self.outline[:subtitles] = {}
+    m = self.subtitles.size
+    # Construct one empty array for each subtitle key
+    m.times { |i|
+      self.outline[:subtitles][self.subtitles[i].name] = []
+    }
+    # For each subtitle key:
+    m.times { |i|
+      j = self.subtitles[i].points.size
+      k = 0
+      # For each point within each subtitle, construct a hash with a key of the point name and a value of that point's note details and push the hash to the subttitle's array
+      while k < j
+        subtitle = self.subtitles[i]
+        point = subtitle.points[k]
+        note = point.notes[0]
+      
+        self.outline[:subtitles][subtitle.name] << {point.name => note ? note.details : "" } if point
+        
+        k += 1
+      end
+    }
+  end
 
 end
 

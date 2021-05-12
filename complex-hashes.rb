@@ -199,29 +199,29 @@ def loop_machine
 end
 
 def build_outline
-  temporary_study.outline[:subtitle] = {}
+  temporary_study.outline = {}
+  # For the outline hash, set a key-value pair consisting of a 'subtitles' symbol key and an empty hash value
+  temporary_study.outline[:subtitles] = {}
   m = temporary_study.subtitles.size
+  # Construct one empty array for each subtitle key
   m.times { |i|
-    temporary_study.outline[:subtitle][temporary_study.subtitles[i].name] = []
+    temporary_study.outline[:subtitles][temporary_study.subtitles[i].name] = []
   }
-
+  # For each subtitle key:
   m.times { |i|
     j = temporary_study.subtitles[i].points.size
     k = 0
+    # For each point within each subtitle, construct a hash with a key of the point name and a value of that point's note details and push the hash to the subttitle's array
     while k < j
-      # subtitle_key = temporary_study.outline[:subtitle][temporary_study.subtitles[i].name]
-      # point_key = temporary_study.subtitles[k].points.[k].name
-      # note_value = point_key.notes[k].details
-
-      temporary_study.outline[:subtitle][temporary_study.subtitles[i].name] << {temporary_study.subtitles[k].points[k].name => temporary_study.subtitles[k].points[k].notes[k].details}
+      subtitle = temporary_study.subtitles[i]
+      point = subtitle.points[k]
+      note = point.notes[0]
+     
+      temporary_study.outline[:subtitles][subtitle.name] << {point.name => note ? note.details : "" } if point
       
       k += 1
     end
-
   }
-
-
-
 end
 
 ###############################################################
