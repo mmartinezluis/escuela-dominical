@@ -5,7 +5,7 @@ class Study < ApplicationRecord
   has_many :points, through: :subtitles
   has_many :notes, through: :points
   
-  # validates_presence_of :title, :semester, :year, :number
+  # validates_presence_of :title, :semester, :year, :number     ADD LATER
 
   # def subtitles
   #   self.outline[:subtitles].keys
@@ -43,7 +43,6 @@ class Study < ApplicationRecord
 
   # Define the id of a point as the union of the index of the point's subtitle and the point's index joined by a period
   def point_id(subtitle, point)
-    
     "#{subtitle_index(subtitle) + 1}" + "." + "#{point_index(subtitle, point) + 1}"
   end
 
@@ -53,48 +52,68 @@ class Study < ApplicationRecord
 
   def activate_point(point)
   end
-
+  
   def invalid_study
-    if self.non_empty_notes != []
-      non_empty_notes = self.non_empty_notes
-      non_empty_notes.each do |note|
-        if note.point.name.empty?
+    if self.non_empty_notes != [] || self.non_empty_points != [] || self.first_two_subtitles.size >= 1
+      if self.non_empty_notes != [] || self.non_empty_points != []
+        if non_empty_notes_points.any?{ |pt| pt.name.blank? }
           "Nonempty notes need to include a point."
-        elsif note.point.subtitle.name.empty?
+        elsif non_empty_points_subtitles.any?{ |sub| sub.name.blank? }
           "Nonempty points need to include a subtitle."
+        else
+          check_subtitles_and_first_point
         end
+      else
+        check_subtitles_and_first_point
       end
-    elsif self.non_empty_points != []
-      non_empty_points = @tempporary_study.non_empty_points
-      non_empty_points.each do |point|
-        if point.subtitle.name.empty?
-          "Nonempty points need to include a subtitle."
-        end
-      end
-    elsif self.subtitles.first.name.blank? && self.at_least_two_subtitles <= 1
-      "The first subtitle cannot be emtpy, and a study requires at least 2 subtitles."
-    elsif self.subtitles.first.name.blank?
-      "The first subtitle cannot be emtpy."
-    elsif self.at_least_two_subtitles.size <= 1
+    else
+      "The first subtitle and the first point cannot be emtpy, and a study requires at least 2 subtitles."
+    end
+  end
+
+  def check_subtitles_and_first_point
+    if self.first_two_subtitles.size <= 1
       "A study requires at least 2 subtitles."
-    elsif self.top_point_not_empty == false
-      "The firt subtitle's point cannot be empty."
+    elsif self.first_subtitle_empty?
+      "The first subtitle cannot be empty."
+    elsif self.top_point_empty?
+      "The first point for the first subtitle cannot be empty."
     end
   end
 
   def non_empty_notes
-    self.notes.where("details != '""' ")
+    self.notes.where.not("details = ?", "")
+  end
+
+  def non_empty_notes_points
+    non_empty_notes.collect do |note|
+      note.point
+    end
   end
 
   def non_empty_points
     self.points.where.not({ "name" => "" })
   end
 
-  def at_least_two_subtitles
-    self.subtitles.where.not({ "name" => "" }).size
+  def non_empty_points_subtitles
+    non_empty_points.collect do |point|
+      point.subtitle
+    end
   end
 
-  def top_point_not_empty
+  def non_empty_subtitles
+    self.subtitles.where.not({"name" => ""})
+  end
+
+  def first_two_subtitles
+    self.subtitles.limit(2).where.not({"name" => ""})
+  end
+
+  def first_subtitle_empty?
+    self.subtitles.first.name.blank?
+  end
+
+  def top_point_empty?
     self.points.first.name.blank?
   end
 
@@ -123,6 +142,12 @@ class Study < ApplicationRecord
   end
 
   def build_outline
+    self.outline[:title] = self.title
+    self.outline[:semester] = self.semester
+    self.outline[:year] = self.year
+    self.outline[:number] = self.number
+    self.outline[:subtitles] = 
+    self.save
   end
 
 

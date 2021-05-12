@@ -22,49 +22,19 @@ class StudiesController < ApplicationController
   end
 
   def create
-    binding.pry
+    
     @study = Study.new(study_params)
-    tempporary_study = Study.create(study_params)
-    # if @tempporary_study.non_empty_notes != []
-    #   non_empty_notes = @tempporary_study.non_empty_notes
-    #   non_empty_notes.each do |note|
-    #     if note.point.name.empty?
-    #       flash[:msg] = "Nonempty notes need to include a point."
-    #       render :'new_refactor.html.erb' and return
-    #     elsif note.point.subtitle.name.empty?
-    #       flash[:msg] = "Nonempty points need to include a subtitle."
-    #       render :'new_refactor.html.erb' and return
-    #     end
-    #   end
-    # elsif @tempporary_study.non_empty_points != []
-    #   non_empty_points = @tempporary_study.non_empty_points
-    #   non_empty_points.each do |point|
-    #     if point.subtitle.name.empty?
-    #       flash[:msg] = "Nonempty points need to include a subtitle."
-    #       render :'new_refactor.html.erb' and return
-    #     end
-    #   end
-    # elsif @tempporary_study.subtitles.first.name.blank? && @tempporary_study.at_least_two_subtitles.size <= 1
-    #   flash[:msg] ="The first subtitle cannot be emtpy, and a study requires at least 2 subtitles."
-    #   render :'new_refactor.html.erb' and return
-    # elsif @tempporary_study.subtitles.first.name.blank?
-    #   flash[:msg] ="The first subtitle cannot be emtpy."
-    #   render :'new_refactor.html.erb' and return
-    # elsif @tempporary_study.at_least_two_subtitles.size <= 1
-    #   flash[:msg] ="A study requires at least 2 subtitles."
-    #   render :'new_refactor.html.erb' and return
-    # end
-    if !tempporary_study.invalid_study.nil?
-      flash[:msg] = tempporary_study.invalid_study
-      tempporary_study.destroy
+    temporary_study = Study.create(study_params)
+    if !temporary_study.invalid_study.nil?
+      flash[:msg] = temporary_study.invalid_study
+      temporary_study.destroy
       render :'new_refactor.html.erb' and return
     else
-      tempporary_study.destroy
-      # @study = Study.new(study_params)
+      temporary_study.destroy
       # @study.destroy_empties
       # @study.save
       # @study.build_outline
-      redirect_to new_study_path 
+      redirect_to studies_path 
     end 
   end
 
