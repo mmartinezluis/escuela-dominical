@@ -1,25 +1,10 @@
 class Study < ApplicationRecord
   serialize :outline, Hash
-  has_many :subtitles, dependent: :destroy               # 'dependent: :destroy' is a callback method that allows the destruction of child objects when the parent object is destroyed; example: destroy a study, and all subtitles for that study will also be destroyed.
-  accepts_nested_attributes_for :subtitles, allow_destroy: true
-  has_many :points, through: :subtitles
-  has_many :notes, through: :points
-  
+  has_many :subtitles, dependent: :destroy, autosave: true               # 'dependent: :destroy' is a callback method that allows the destruction of child objects when the parent object is destroyed; example: destroy a study, and all subtitles for that study will also be destroyed.
+  accepts_nested_attributes_for :subtitles, allow_destroy: true           # Provides a 'delete' checkbox in the study new/edit forms so that if the checkbox is hit the given subtitle is deleted upon submisssion of the form
+  has_many :points, through: :subtitles, autosave: true                 # 'Autosave' allows to save the parent and the children on both the create action and the update action
+  has_many :notes, through: :points, autosave: true
   # validates_presence_of :title, :semester, :year, :number     ADD LATER
-
-  # def subtitles
-  #   self.outline[:subtitles].keys
-  # end
-
-  # def points
-  #   self.outline[:subtitles].each do |subtitle, values|
-  #     group = []
-  #     values.each do |point, note|
-  #       points << point
-  #     end
-  #   end
-  #   group
-  # end
   
   def subtitle_index(subtitle)
     self.subtitles.index(subtitle)
@@ -44,13 +29,6 @@ class Study < ApplicationRecord
   # Define the id of a point as the union of the index of the point's subtitle and the point's index joined by a period
   def point_id(subtitle, point)
     "#{subtitle_index(subtitle) + 1}" + "." + "#{point_index(subtitle, point) + 1}"
-  end
-
-  def retrieve_point_by_id(point_id)
-
-  end
-
-  def activate_point(point)
   end
   
   def invalid_study
@@ -169,9 +147,7 @@ class Study < ApplicationRecord
         subtitle = self.subtitles[i]
         point = subtitle.points[k]
         note = point.notes[0]
-      
-        self.outline[:subtitles][subtitle.name] << {point.name => note ? note.details : "" } if point
-        
+        self.outline[:subtitles][subtitle.name] << { point.name => note ? note.details : "" } if point
         k += 1
       end
     }

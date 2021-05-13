@@ -15,7 +15,7 @@ class StudiesController < ApplicationController
       subtitle = @study.subtitles.build
       2.times { 
         point = subtitle.points.build 
-        point.notes.build
+        note = point.notes.build
       }
     }
     render :'new_refactor.html.erb'
@@ -30,7 +30,6 @@ class StudiesController < ApplicationController
       render :'new_refactor.html.erb' and return
     else
       temporary_study.destroy
-      binding.pry
       @study = Study.create(study_params)
       @study.destroy_empties
       @study.build_outline
@@ -48,7 +47,7 @@ class StudiesController < ApplicationController
       :semester,
       :year, 
       :number, 
-      :subtitles_attributes => [:name, :_destroy,
+      :subtitles_attributes => [:name, :_destroy,       # '_destroy' provides a checkbox in the study new/edit form to destroy the subtitle if checked
         :points_attributes => [:name,
           :notes_attributes => [:details
           ]

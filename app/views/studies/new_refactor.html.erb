@@ -22,12 +22,10 @@
   <ol id="new-study-ol-list">
     <%= f.fields_for :subtitles do |sub| %>
       <li>
-
         <div class="sub-div" id="<%= sub.index %>">
           <%= sub.label 'Subtitle' %>
           <%= sub.text_field :name %>
         </div><br>
-
         <ul id="new-study-ul-list">
           <%= sub.fields_for :points do |point| %>
             <li>
@@ -35,18 +33,15 @@
                 <%= point.label 'Point' %>
                 <%= point.text_field :name %>
               </div><br><br>
-
               <%= point.fields_for :notes do |note| %>
                 <div class="note-div" id="<%= sub.index %>.<%= point.index %>.<%= note.index %>">
                   <%= note.label 'Notes' %>
                   <%= note.text_area :details %>
                 </div><br><br>
               <% end %>
-
             </li>
           <% end %>
         </ul>
-
       <br>Delete: <%= sub.check_box :_destroy %><br><br>
       </li>
     <% end %>
