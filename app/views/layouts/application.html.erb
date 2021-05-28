@@ -41,6 +41,29 @@
           }
         }
 
+        function addPoint(subtitle_id) {
+          binding.pry
+          let subtitle = document.getElementById(subtitle_id)
+          let points = subtitle.querySelectorAll('div.point-div');
+          let last_point = points[points.length - 1];
+          let point_id = parseInt(last_point.id.slice(-1));
+          const max = 2;
+          if ( point_id < 2) {
+            let ul = document.querySelector('${subtitle} + ul');
+            let li = document.createElement('li');
+            let div = document.createElement('div');
+            let input = document.createElement('input');
+            input.setAttribute("type", "text");
+            input.name = `study[subtitles_attributes][${subtitle_id}][points_attributes][${point_id}][name]`;
+            input.id = `study_subtitles_attributes_${subtitle_id}_points_attributes_${point_id}_name`;
+            ul.appendChild(li);
+            li.appendChild(input);
+            return input
+          }
+        }
+
+
+
     </script>
 
   </body>

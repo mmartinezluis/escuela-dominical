@@ -107,8 +107,8 @@ display: none;
 }
 
 button {
-background: none;
-border: none;
+/* background: none;
+border: none; */
 cursor: pointer;
 text-decoration: underline;
 color: brown;
