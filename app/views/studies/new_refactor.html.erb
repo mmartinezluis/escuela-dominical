@@ -25,26 +25,24 @@
         <div class="sub-div" id="<%= sub.index %>">
           <%= sub.label 'Subtitle' %> 
           <%= sub.text_field :name %>
-          <button onclick="addPoint(<%= sub.index %>)">Add point</button>
-        </div><br>
         <ul id="new-study-ul-list">
           <%= sub.fields_for :points do |point| %>
             <li>
               <div class="point-div" id="<%= sub.index %>.<%= point.index %>">
                 <%= point.label 'Point' %>
                 <%= point.text_field :name %>
-                <button onclick="activateBox(<%= point.index %>)">Hide point</button>
-              </div><br><br>
+              </div><br>
               <%= point.fields_for :notes do |note| %>
                 <div class="note-div" id="<%= sub.index %>.<%= point.index %>.<%= note.index %>">
                   <%= note.label 'Notes' %>
                   <%= note.text_area :details %>
-                </div><br><br>
+                </div><br>
               <% end %>
             </li>
           <% end %>
         </ul>
       <br>Delete: <%= sub.check_box :_destroy %><br><br>
+      </div><br>
       </li>
     <% end %>
   </ol>
@@ -53,3 +51,5 @@
 <% end %>
 
 
+
+<button onclick = "addPoint(0)">Add Point</button>
