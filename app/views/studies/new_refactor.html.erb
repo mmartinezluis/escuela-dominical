@@ -1,7 +1,9 @@
 <h1>Create a New Study</h1>
-<% if flash[:msg] %>
-  <%= flash[:msg] %>
-<% end %>
+<div class = "msg">
+  <% if flash[:msg] %>
+    <%= flash[:msg] %>
+  <% end %>
+</div>
 
 <%= form_for @study do |f| %>
   <%= f.label :title %>

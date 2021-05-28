@@ -13,7 +13,7 @@ class StudiesController < ApplicationController
     # @study.subtitles.build.points.build.notes.build
     2.times { 
       subtitle = @study.subtitles.build
-      2.times { 
+      1.times { 
         point = subtitle.points.build 
         note = point.notes.build
       }
