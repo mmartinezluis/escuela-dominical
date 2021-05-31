@@ -27,6 +27,7 @@
         <div class="sub-div" id="<%= sub.index %>">
           <%= sub.label 'Subtitle' %> 
           <%= sub.text_field :name %>
+          <button class= "addpoint" onclick = "addPoint(<%= sub.index %>)">Add Point</button>
         <ul id="new-study-ul-list">
           <%= sub.fields_for :points do |point| %>
             <li>
@@ -54,4 +55,4 @@
 
 
 
-<button onclick = "addPoint(0)">Add Point</button>
+

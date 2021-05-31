@@ -41,7 +41,15 @@
           }
         }
 
+        function controlButton(subtitle_id) {
+          let addPointButton = document.querySelector('button#${subtitle_id}');
+          addPointButton.addEventListener("click", function(event) {
+            event.preventDefault();
+          });
+        };
+
         function addPoint(subtitle_id) {
+          controlButton(subtitle_id)
           let subtitle = document.getElementById(subtitle_id)
           let points = subtitle.querySelectorAll('div.point-div');
           let last_point = points[points.length - 1];
@@ -67,9 +75,12 @@
           else {
             let div = document.querySelector(`div.msg`);
             div.innerHTML = "Each subtitle can have a maximum of 3 points.";
-
           }
         }
+        
+  
+
+
 
 
 

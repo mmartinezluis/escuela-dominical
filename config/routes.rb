@@ -6,5 +6,7 @@ Rails.application.routes.draw do
     get '/:point_id', to: 'studies#activate', as: 'point'
   end
 
+  root "studies#index"
+
 
 end
