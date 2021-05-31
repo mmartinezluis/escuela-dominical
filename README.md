@@ -1,5 +1,5 @@
 ## Introduction
- Hi, welcome to Escuela Dominical. Escuela Dominical means "Sunday School". Sunday School studies typically consist of an outline of three subtitles, each subtitle containing two points, and each point containing the information for the development of the given study. The most common way of delivering a study to a relatively large audience is through slides presentations, using a horizontal flow. Preparing such a presentation usually involves moving from slide to slide to add and/or edit information, and making a copy of a previous presentation to create a new one would require to delete the old info to repalce it with new info. Escuela Dominical is a Ruby on Rails applcation that allows users to create a full study in a single page through a smooth study creation process and a compact view design. The study can then be presented through the application's focus views feature and vertical flow design. Editing, adding or deleting subtitles, points, notes or images is as simple as clicking on a study, make your desired changes, and click on save. No need to move through slides to locate your desired information. 
+ Hi, welcome to Escuela Dominical. Escuela Dominical means "Sunday School". Sunday School studies typically consist of an outline of three subtitles, each subtitle containing two points, and each point containing the information for the development of the given study. The most common way of delivering a study to a relatively large audience is through slides presentations, using a horizontal flow. Preparing such a presentation usually involves moving from slide to slide to add and/or edit information, and making a copy of a previous presentation to create a new one would require to delete the old info to repalce it with new info. Escuela Dominical is a Ruby on Rails applcation that allows users to create a full study in a single page through a smooth study creation process and a compact view design. The created study can then be presented through the application's focus views feature and vertical flow design. Editing, adding or deleting subtitles, points, notes or images is as simple as clicking on a study, make your desired changes, and click on save. No need to move through slides to locate your desired information. 
 
 ## Functionality
  Escuela Dominical lends itself as a powerful tool to create any type of study, and as a database for studies. The expected user stories for Escuela Dominical can be listed as:
@@ -29,7 +29,7 @@
  $ git clone https://github.com/mmartinezluis/escuela-dominical.git
  ```
  
- Then, in the rroot directoryInstall the needed gems:
+ Then, in the rroot directory install the needed gems:
  ``` javascript
  $ bundle install
  ```
@@ -55,4 +55,4 @@ Finally, start the application:
  ```
 
 ## Special Feature
- Escuela Dominical counts with a powerful #build_outline Ruby method that allows to show all of the parts of a study in the most compacted way through a hash. 
+Escuela Dominical counts with a powerful #build_outline Ruby method that allows to show all of the parts of a study in the most compacted way through a hash. 
