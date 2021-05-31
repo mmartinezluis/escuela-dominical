@@ -35,7 +35,7 @@
                 <%= point.label 'Point' %>
                 <%= point.text_field :name %>
               </div><br>
-              <%= point.fields_for :notes do |note| %>
+              <%= point.fields_for :note do |note| %>
                 <div class="note-div" id="<%= sub.index %>.<%= point.index %>.<%= note.index %>">
                   <%= note.label 'Notes' %>
                   <%= note.text_area :details %>

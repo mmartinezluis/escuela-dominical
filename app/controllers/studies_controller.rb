@@ -15,10 +15,9 @@ class StudiesController < ApplicationController
       subtitle = @study.subtitles.build
       1.times { 
         point = subtitle.points.build 
-        note = point.notes.build
+        note = point.build_note
       }
     }
-    redirect_to new_study_path
   end
 
   def create
@@ -43,14 +42,10 @@ class StudiesController < ApplicationController
 
   def study_params
     params.require(:study).permit(
-      :title, 
-      :semester,
-      :year, 
-      :number, 
-      :subtitles_attributes => [:name, :_destroy,       # '_destroy' provides a checkbox in the study new/edit form to destroy the subtitle if checked
-        :points_attributes => [:name,
-          :notes_attributes => [:details
-          ]
+      :title, :semester, :year, :number, 
+      subtitles_attributes: [ :name, :_destroy,       # '_destroy' provides a checkbox in the study new/edit form to destroy the subtitle if checked
+        points_attributes: [ :name,
+          notes_attributes: [ :details ]
         ]
       ]
     )
