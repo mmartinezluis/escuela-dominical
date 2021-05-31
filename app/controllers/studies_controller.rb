@@ -18,7 +18,7 @@ class StudiesController < ApplicationController
         note = point.notes.build
       }
     }
-    render :'new_refactor.html.erb'
+    redirect_to new_study_path
   end
 
   def create
@@ -27,7 +27,7 @@ class StudiesController < ApplicationController
     if !temporary_study.invalid_study.nil?
       flash[:msg] = temporary_study.invalid_study
       temporary_study.destroy
-      render :'new_refactor.html.erb' and return
+      render :'new.html.erb' and return
     else
       temporary_study.destroy
       @study = Study.create(study_params)

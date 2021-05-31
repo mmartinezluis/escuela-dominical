@@ -23,67 +23,53 @@
     </div>
 
     <script>      
-      function myFunction() {
-        var x = document.getElementById("active");
-        if (x.style.display === "none") {
-          x.style.display = "block";
+ 
+      function activatePoint(point_id) {
+        let point = document.getElementById(point_id);
+        if (point.style.display === "none") {
+          point.style.display = "block";
         } else {
-          x.style.display = "none";
+          point.style.display = "none";
+        }
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.addpoint').forEach((button) => {
+          button.addEventListener("click", (e) => {
+            e.preventDefault();
+          });
+        });
+      });
+
+      function addPoint(subtitle_id) {
+        let subtitle = document.getElementById(subtitle_id);
+        let points = subtitle.querySelectorAll('div.point-div');
+        let last_point = points[points.length - 1];
+        let point_id = parseInt(last_point.id.slice(-1));
+        const max = 2;
+        if ( point_id < max ) {
+          let ul = subtitle.querySelector(`ul`);
+          let li = document.createElement('li');
+          let div = document.createElement('div');
+          let input = document.createElement('input');
+          input.setAttribute("type", "text");
+          input.name = `study[subtitles_attributes][${subtitle_id}][points_attributes][${point_id}][name]`;
+          input.id = `study_subtitles_attributes_${subtitle_id}_points_attributes_${point_id}_name`;
+          let label = document.createElement('label');
+          label.innerHTML = "Point";
+          ul.appendChild(li);
+          div.setAttribute("class","point-div");
+          div.id = `${subtitle.id}.${point_id + 1}`;
+          li.appendChild(div);
+          div.appendChild(label);
+          div.appendChild(input);
+        }
+        else {
+          let div = document.querySelector(`div.msg`);
+          div.innerHTML = "Each subtitle can have a maximum of 3 points.";
         }
       }
-
-        function activateBox(box_id) {
-          var x = document.getElementById(box_id);
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-
-        function controlButton(subtitle_id) {
-          let addPointButton = document.querySelector('button#${subtitle_id}');
-          addPointButton.addEventListener("click", function(event) {
-            event.preventDefault();
-          });
-        };
-
-        function addPoint(subtitle_id) {
-          controlButton(subtitle_id)
-          let subtitle = document.getElementById(subtitle_id)
-          let points = subtitle.querySelectorAll('div.point-div');
-          let last_point = points[points.length - 1];
-          let point_id = parseInt(last_point.id.slice(-1));
-          const max = 2;
-          if ( point_id < 2) {
-            let ul = subtitle.querySelector(`ul`);
-            let li = document.createElement('li');
-            let div = document.createElement('div');
-            let input = document.createElement('input');
-            input.setAttribute("type", "text");
-            input.name = `study[subtitles_attributes][${subtitle_id}][points_attributes][${point_id}][name]`;
-            input.id = `study_subtitles_attributes_${subtitle_id}_points_attributes_${point_id}_name`;
-            let label = document.createElement('label');
-            label.innerHTML = "Point";
-            ul.appendChild(li);
-            div.setAttribute("class","point-div");
-            div.id = `${subtitle.id}.${point_id + 1}`;
-            li.appendChild(div);
-            div.appendChild(label);
-            div.appendChild(input);
-          }
-          else {
-            let div = document.querySelector(`div.msg`);
-            div.innerHTML = "Each subtitle can have a maximum of 3 points.";
-          }
-        }
         
-  
-
-
-
-
-
     </script>
 
   </body>

@@ -7,6 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+
+# Study.all.delete_all
+
+# This STUDIES array contains 3 studies; each study is contained in a hash
 STUDIES = [
   {
     :title => "El Inicio de la Gran Tribulación",
@@ -15,25 +19,28 @@ STUDIES = [
     :number => 18,
     :biblical_base => "Apocalipsis 6:1-7:17",
     :subtitles => {
+      #  The below key is a subtitle
       "Los juicios de los primeros cuatro sellos (Ap. 6:1-8)" => [
+        #  Each of the below keys is a point; and each value is a note
         {"El juicio del caballo blanco, diplomacia y autoritarismo (6:1,2)" => "Dios jusga la desobedicencia (Génesis 3:8-23)"},
         {"El juicio del caballo bermejo, guerras y conflictos (6:3,4)" => "Dios jusga la irreverencia (Números 2:1-15)"},
         {"El juicio del caballo negro,, hambre y escasez (6:5,6)" => "Dios jusga la rebelión (1 Samuel 15:24-35)"},
         {"El juicio del caballo amarillo, muerte y condenación (6:7,8)" => "Los juicios de los sellos (Ap. 6:1-8:1)"}
       ],
-
+      #  The below key is a subtitle
       "Los escogidos de dios son sellados (Ap. 7:1-8)" => [
         {"Protección divina en medio de la tribulación (7:1-3)" => "Los juicios de las trompetas (Ap. 8:2-9:21)"},
         {"Identidad de los que son sellados (7:4-8)" => "Juicio de las naciones (Ap. 6:1-21)"}
       ],
-
+      #  The below key is a subtitle
       "Una gran multitud de redimidos (Ap. 6:9-11, 7:9-17)" => [
+        #  Each of the below keys is a point; and each value is a note
         {"Los primeros mártires de la tribulación (6:9-11)" => "Entender mejor el amor y la justicia de Dios"},
         {"Se completa el número de los mártires (7:9-17)" => "Considerar los sufirmientos causados por la tribulación"}
       ]
     }
-  },
-
+  },    # End of first study
+        # Second study starts on below hash
   {
     :title => "Ángeles con Siete Trompetas",
     :semester => 2,
@@ -79,9 +86,7 @@ STUDIES = [
       ]
     }
   }
-
 ]
-
 
 def create_studies(array)
   array.each do |study|
@@ -91,6 +96,7 @@ def create_studies(array)
     new_study.year = study[:year]
     new_study.number = study[:number]
     new_study.outline = study
+    # new_study.create_subtitles
     new_study.save
   end
 end

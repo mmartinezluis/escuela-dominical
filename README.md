@@ -29,7 +29,7 @@
  $ git clone https://github.com/mmartinezluis/escuela-dominical.git
  ```
  
- Then, in the rroot directory install the needed gems:
+ Then, in the root directory install the needed gems:
  ``` javascript
  $ bundle install
  ```

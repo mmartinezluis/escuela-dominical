@@ -153,5 +153,19 @@ class Study < ApplicationRecord
     }
   end
 
+  # This method is only used for creating studies from the seeds file
+  def create_subtitles
+    binding.pry
+    self.outline[:subtitles].each do |subtitle, points_array|
+      new_subtitle = self.subtitles.build(name: subtitle)
+      points_array.each do |point_hash|
+        point_hash.each do |point, note|
+          new_point = new_subtitle.points.build(name: point)
+          new_note = new_point.note.build(details: note)
+        end
+      end
+    end
+  end
+
 end
 
