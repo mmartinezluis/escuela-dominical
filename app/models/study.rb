@@ -4,7 +4,14 @@ class Study < ApplicationRecord
   accepts_nested_attributes_for :subtitles, allow_destroy: true           # Provides a 'delete' checkbox in the study new/edit forms so that if the checkbox is hit the given subtitle is deleted upon submisssion of the form
   has_many :points, through: :subtitles, autosave: true                 # 'Autosave' allows to save the parent and the children on both the create action and the update action
   has_many :notes, through: :points, autosave: true
+
   # validates_presence_of :title, :semester, :year, :number     ADD LATER
+  include ActiveModel::Validations
+  validates_with SubtitleValidator
+  validates_with PointValidator
+  validates_with NoteValidator
+  validates_with PointSubtitleValidator
+  
   
   def subtitle_index(subtitle)
     self.subtitles.index(subtitle)
@@ -146,7 +153,7 @@ class Study < ApplicationRecord
       while k < j
         subtitle = self.subtitles[i]
         point = subtitle.points[k]
-        note = point.notes[0]
+        note = point.note
         self.outline[:subtitles][subtitle.name] << { point.name => note ? note.details : "" } if point
         k += 1
       end
@@ -155,7 +162,6 @@ class Study < ApplicationRecord
 
   # This method is only used for creating studies from the seeds file
   def create_subtitles
-    binding.pry
     self.outline[:subtitles].each do |subtitle, points_array|
       new_subtitle = self.subtitles.build(name: subtitle)
       points_array.each do |point_hash|

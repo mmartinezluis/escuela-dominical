@@ -20,21 +20,27 @@ class StudiesController < ApplicationController
     }
   end
 
-  def create
+  def create    
+    # @study = Study.new(study_params)
+    # temporary_study = Study.create(study_params)
+    # if !temporary_study.invalid_study.nil?
+    #   flash[:msg] = temporary_study.invalid_study
+    #   temporary_study.destroy
+    #   render :'new.html.erb' and return
+    # else
+    #   temporary_study.destroy
+    #   @study = Study.create(study_params)
+    #   @study.destroy_empties
+    #   @study.build_outline
+    #   @study.save
+    #   redirect_to studies_path 
+    # end 
     @study = Study.new(study_params)
-    temporary_study = Study.create(study_params)
-    if !temporary_study.invalid_study.nil?
-      flash[:msg] = temporary_study.invalid_study
-      temporary_study.destroy
-      render :'new.html.erb' and return
-    else
-      temporary_study.destroy
-      @study = Study.create(study_params)
-      @study.destroy_empties
-      @study.build_outline
-      @study.save
-      redirect_to studies_path 
-    end 
+    binding.pry
+    if @study.valid?
+      # @study.save
+    end
+    render :new
   end
 
 
@@ -42,10 +48,10 @@ class StudiesController < ApplicationController
 
   def study_params
     params.require(:study).permit(
-      :title, :semester, :year, :number, 
+      :title, :semester, :year, :number, :biblical_base,
       subtitles_attributes: [ :name, :_destroy,       # '_destroy' provides a checkbox in the study new/edit form to destroy the subtitle if checked
         points_attributes: [ :name,
-          notes_attributes: [ :details ]
+          note_attributes: [ :details ]
         ]
       ]
     )

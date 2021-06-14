@@ -9,18 +9,18 @@
     
       <% @study.subtitles.each do |subtitle| %>
         <li>
-          <h3><%= subtitle %></h3>
+          <h3><%= subtitle.name %></h3>
         </li>
         <div class= "minor-box" id="point-box">
           <ol class="points-list">
             <% subtitle.points.each do |point| %>
               <li>
                 <button onclick="activatePoint(<%= subtitle.id %><%= point.id %>)">
-                  <%= point  %>
+                  <%= point.name  %>
                 </button>
               </li> 
-              <div class="notes-box" id="<%= @study.point_id(subtitle, point) %>"
-                <h1><%= point.note  %></h1>
+              <div class="notes-box" id="<%= subtitle.id %>.<%= point.id %>.<%= point.note.id if point.note %>"
+                <h1><%= point.note.details if point.note  %></h1>
               </div>
             <% end %>
           </ol>
@@ -31,3 +31,5 @@
             
 <%= link_to 'Delete Study', @study, method: :delete, data: { confirm: 'Are you sure?' } %>
 </section>
+
+<%= @study.outline %>

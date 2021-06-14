@@ -96,7 +96,8 @@ def create_studies(array)
     new_study.year = study[:year]
     new_study.number = study[:number]
     new_study.outline = study
-    # new_study.create_subtitles
+    new_study.save
+    new_study.create_subtitles
     new_study.save
   end
 end

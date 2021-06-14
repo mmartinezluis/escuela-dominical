@@ -5,6 +5,18 @@
   <% end %>
 </div>
 
+<% if @study.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@study.errors.count, "error") %> prohibited this study from being saved:</h2>
+
+    <ul>
+      <% @study.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @study do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %><br><br>
@@ -25,27 +37,29 @@
     <%= f.fields_for :subtitles do |sub| %>
       <li>
         <div class="sub-div" id="<%= sub.index %>">
+          
           <%= sub.label 'Subtitle' %> 
           <%= sub.text_field :name %>
+          
           <button class= "addpoint" onclick = "addPoint(<%= sub.index %>)">Add Point</button>
-        <ul id="new-study-ul-list">
-          <%= sub.fields_for :points do |point| %>
-            <li>
-              <div class="point-div" id="<%= sub.index %>.<%= point.index %>">
-                <%= point.label 'Point' %>
-                <%= point.text_field :name %>
-              </div><br>
-              <%= point.fields_for :note do |note| %>
-                <div class="note-div" id="<%= sub.index %>.<%= point.index %>.<%= note.index %>">
-                  <%= note.label 'Notes' %>
-                  <%= note.text_area :details %>
+          <ul id="new-study-ul-list">
+            <%= sub.fields_for :points do |point| %>
+              <li>
+                <div class="point-div" id="<%= sub.index %>.<%= point.index %>">
+                  <%= point.label 'Point' %>
+                  <%= point.text_field :name %>
                 </div><br>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <br>Delete: <%= sub.check_box :_destroy %><br><br>
-      </div><br>
+                <%= point.fields_for :note do |note| %>
+                  <div class="note-div" id="<%= sub.index %>.<%= point.index %>.<%= note.index %>">
+                    <%= note.label 'Notes' %>
+                    <%= note.text_area :details %>
+                  </div><br>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <p>Delete subtitle: <%= sub.check_box :_destroy %></p><br><br>
+        </div><br>
       </li>
     <% end %>
   </ol>
