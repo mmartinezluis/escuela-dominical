@@ -1,7 +1,7 @@
 class StudiesController < ApplicationController
 
   def index
-    @studies= Study.all
+    @studies = Study.all
   end
 
   def show
@@ -10,7 +10,6 @@ class StudiesController < ApplicationController
 
   def new
     @study = Study.new
-    # @study.subtitles.build.points.build.notes.build
     2.times { 
       subtitle = @study.subtitles.build
       1.times { 
@@ -21,27 +20,21 @@ class StudiesController < ApplicationController
   end
 
   def create    
-    # @study = Study.new(study_params)
-    # temporary_study = Study.create(study_params)
-    # if !temporary_study.invalid_study.nil?
-    #   flash[:msg] = temporary_study.invalid_study
-    #   temporary_study.destroy
-    #   render :'new.html.erb' and return
-    # else
-    #   temporary_study.destroy
-    #   @study = Study.create(study_params)
-    #   @study.destroy_empties
-    #   @study.build_outline
-    #   @study.save
-    #   redirect_to studies_path 
-    # end 
     @study = Study.new(study_params)
-    binding.pry
     if @study.valid?
-      # @study.save
+      @study.build_outline
+      @study.save
+      redirect_to studies_path
+    else
+      render :new
     end
-    render :new
   end
+
+    def destroy
+      study = Study.find_by(id: params[:id])
+      study.destroy
+      redirect_to studies_path
+    end
 
 
   private

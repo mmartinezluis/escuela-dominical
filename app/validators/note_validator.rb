@@ -3,9 +3,12 @@ class NoteValidator < ActiveModel::Validator
     boolean_value = false
     record.subtitles.each do |subtitle|
       subtitle.points.each do |point|
-        # Check whether there are any nonempty notes whose point is empty
-        if point.name.blank? && !point.note.details.blank?
-          boolean_value = true
+        # Check that the note is not nil
+        if point.note
+          # Check whether there are any nonempty notes whose point is empty
+          if point.name.blank? && !point.note.details.blank?
+            boolean_value = true
+          end
         end
       end
     end

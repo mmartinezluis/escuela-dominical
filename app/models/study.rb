@@ -12,120 +12,9 @@ class Study < ApplicationRecord
   validates_with NoteValidator
   validates_with PointSubtitleValidator
   
+  before_save :mark_children_for_removal
+
   
-  def subtitle_index(subtitle)
-    self.subtitles.index(subtitle)
-  end
-
-  def point_index(subtitle, point)
-    index =""
-    self.outline[:subtitles].each do |sub, points_array|
-      if sub == subtitle
-        points_array.each do |point_hash|
-          point_hash.each do |pt, note|
-            if pt == point
-              index = points_array.index(point_hash)
-            end
-          end
-        end
-      end
-    end
-    index
-  end
-
-  # Define the id of a point as the union of the index of the point's subtitle and the point's index joined by a period
-  def point_id(subtitle, point)
-    "#{subtitle_index(subtitle) + 1}" + "." + "#{point_index(subtitle, point) + 1}"
-  end
-  
-  def invalid_study
-    if self.non_empty_notes != [] || self.non_empty_points != [] || self.first_two_subtitles.size >= 1
-      if self.non_empty_notes != [] || self.non_empty_points != []
-        if non_empty_notes_points.any?{ |pt| pt.name.blank? }
-          "Nonempty notes need to include a point."
-        elsif non_empty_points_subtitles.any?{ |sub| sub.name.blank? }
-          "Nonempty points need to include a subtitle."
-        else
-          check_subtitles_and_first_point
-        end
-      else
-        check_subtitles_and_first_point
-      end
-    else
-      "The first subtitle and the first point cannot be emtpy, and a study requires at least 2 subtitles."
-    end
-  end
-
-  def check_subtitles_and_first_point
-    if self.first_two_subtitles.size <= 1
-      "A study requires at least 2 subtitles."
-    elsif self.first_subtitle_empty?
-      "The first subtitle cannot be empty."
-    elsif self.top_point_empty?
-      "The first point for the first subtitle cannot be empty."
-    end
-  end
-
-  def non_empty_notes
-    self.notes.where.not("details = ?", "")
-  end
-
-  def non_empty_notes_points
-    non_empty_notes.collect do |note|
-      note.point
-    end
-  end
-
-  def non_empty_points
-    self.points.where.not({ "name" => "" })
-  end
-
-  def non_empty_points_subtitles
-    non_empty_points.collect do |point|
-      point.subtitle
-    end
-  end
-
-  def non_empty_subtitles
-    self.subtitles.where.not({"name" => ""})
-  end
-
-  def first_two_subtitles
-    self.subtitles.limit(2).where.not({"name" => ""})
-  end
-
-  def first_subtitle_empty?
-    self.subtitles.first.name.blank?
-  end
-
-  def top_point_empty?
-    self.points.first.name.blank?
-  end
-
-  def destroy_empties
-    destroy_empty_notes
-    destroy_empty_points
-    destroy_empty_subtitles
-  end
-
-  def destroy_empty_subtitles
-    self.subtitles.where({ "name" => "" }).each do |sub|
-      sub.destroy
-    end
-  end
-
-  def destroy_empty_points
-    self.points.where({ "name" => "" }).each do |point|
-      point.destroy
-    end
-  end
-
-  def destroy_empty_notes
-    self.notes.where("details = ?", "").each do |note|
-      note.destroy
-    end
-  end
-
   def build_outline
     self.outline = {}
     self.outline[:title] = self.title
@@ -133,8 +22,8 @@ class Study < ApplicationRecord
     self.outline[:year] = self.year
     self.outline[:number] = self.number
     self.outline[:biblical_base] = self.biblical_base
-    self.build_subtitles
     self.save
+    self.build_subtitles
   end
 
   def build_subtitles
@@ -172,6 +61,13 @@ class Study < ApplicationRecord
       end
     end
   end
+
+  private
+    def mark_children_for_removal
+      subtitles.each do |subtitle|
+        subtitle.mark_for_destruction if subtitle.name.blank?
+      end
+    end
 
 end
 
